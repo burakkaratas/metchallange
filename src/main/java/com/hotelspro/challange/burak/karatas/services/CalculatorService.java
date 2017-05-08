@@ -33,14 +33,19 @@ public class CalculatorService {
 
         LOGGER.info(param1 + " and " + param2 + " was calculated, operation :: " + calculateType + ", result :: " + result);
 
+        CalculatedEntity calculatedEntity = getCalculatedEntity(param1, param2, calculateType, result);
+        calculatorRepository.save(calculatedEntity);
+
+        return result;
+    }
+
+    private CalculatedEntity getCalculatedEntity(Double param1, Double param2, CalculateType calculateType, Double result) {
         CalculatedEntity calculatedEntity = new CalculatedEntity();
         calculatedEntity.setOperationResult(result);
         calculatedEntity.setOperationParam1(param1);
         calculatedEntity.setOperationParam2(param2);
         calculatedEntity.setCalculateType(calculateType);
-        calculatorRepository.save(calculatedEntity);
-
-        return result;
+        return calculatedEntity;
     }
 
 
