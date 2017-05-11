@@ -18,7 +18,6 @@ public class ExecuteTimeInterceptor implements HandlerInterceptor {
     private static final String START_TIME_PRE_ATTRIBUTE_NAME = "startTimePre";
     private static final String START_TIME_POST_ATTRIBUTE_NAME = "startTimePost";
 
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setAttribute(START_TIME_PRE_ATTRIBUTE_NAME, System.currentTimeMillis());
