@@ -1,7 +1,7 @@
 package com.hotelspro.challange.burak.karatas.controllers.validators;
 
-import com.hotelspro.challange.burak.karatas.controllers.util.CalculatorRestHelper;
 import com.hotelspro.challange.burak.karatas.controllers.exceptions.BusinessException;
+import com.hotelspro.challange.burak.karatas.controllers.util.CalculatorRestHelper;
 import com.hotelspro.challange.burak.karatas.models.request.CalculatorRestRequest;
 
 /**

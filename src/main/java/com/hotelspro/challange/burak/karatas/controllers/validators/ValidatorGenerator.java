@@ -9,8 +9,10 @@ public class ValidatorGenerator {
         HeaderExistValidator one = new HeaderExistValidator();
         BodyExistValidator two = new BodyExistValidator();
         NullCheckValidator three = new NullCheckValidator();
+
         one.setNextValidator(two);
         two.setNextValidator(three);
+
         return one;
     }
 

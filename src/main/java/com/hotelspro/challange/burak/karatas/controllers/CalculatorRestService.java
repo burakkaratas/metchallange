@@ -1,13 +1,16 @@
 package com.hotelspro.challange.burak.karatas.controllers;
 
+import com.hotelspro.challange.burak.karatas.controllers.exceptions.BusinessException;
 import com.hotelspro.challange.burak.karatas.controllers.util.CalculatorRestHelper;
 import com.hotelspro.challange.burak.karatas.controllers.validators.IValidator;
 import com.hotelspro.challange.burak.karatas.controllers.validators.ValidatorGenerator;
-import com.hotelspro.challange.burak.karatas.controllers.exceptions.BusinessException;
 import com.hotelspro.challange.burak.karatas.models.enums.CalculateResponseStatus;
 import com.hotelspro.challange.burak.karatas.models.enums.CalculateType;
 import com.hotelspro.challange.burak.karatas.models.request.CalculatorRestRequest;
-import com.hotelspro.challange.burak.karatas.models.response.*;
+import com.hotelspro.challange.burak.karatas.models.response.CalculatorResponseBodyWithError;
+import com.hotelspro.challange.burak.karatas.models.response.CalculatorResponseBodyWithSuccess;
+import com.hotelspro.challange.burak.karatas.models.response.CalculatorRestResponse;
+import com.hotelspro.challange.burak.karatas.models.response.ResponseHeader;
 import com.hotelspro.challange.burak.karatas.models.response.builder.CalculatorResponseBuilder;
 import com.hotelspro.challange.burak.karatas.services.CalculatorService;
 import org.apache.log4j.Logger;
@@ -34,7 +37,7 @@ public class CalculatorRestService {
     @RequestMapping(value = "addition", method = RequestMethod.POST)
     public CalculatorRestResponse additionMethod(@RequestBody CalculatorRestRequest requestModel) {
         try {
-            validateRestRequest(requestModel, CalculateType.ADDITION);
+            getValidatorForCalculateType(CalculateType.ADDITION).validate(requestModel);
         } catch (BusinessException e) {
             LOGGER.error(e.getMessage());
             return failedResponsePrepare(requestModel, e);
@@ -45,7 +48,7 @@ public class CalculatorRestService {
     @RequestMapping(value = "subtraction", method = RequestMethod.POST)
     public CalculatorRestResponse subtractionMethod(@RequestBody CalculatorRestRequest requestModel) {
         try {
-            validateRestRequest(requestModel, CalculateType.SUBSTRACTION);
+            getValidatorForCalculateType(CalculateType.SUBSTRACTION).validate(requestModel);
         } catch (BusinessException e) {
             LOGGER.error(e.getMessage());
             return failedResponsePrepare(requestModel, e);
@@ -56,7 +59,7 @@ public class CalculatorRestService {
     @RequestMapping(value = "division", method = RequestMethod.POST)
     public CalculatorRestResponse divisionMethod(@RequestBody CalculatorRestRequest requestModel) {
         try {
-            validateRestRequest(requestModel, CalculateType.DIVISION);
+            getValidatorForCalculateType(CalculateType.DIVISION).validate(requestModel);
         } catch (BusinessException e) {
             LOGGER.error(e.getMessage());
             return failedResponsePrepare(requestModel, e);
@@ -67,7 +70,7 @@ public class CalculatorRestService {
     @RequestMapping(value = "multiply", method = RequestMethod.POST)
     public CalculatorRestResponse multiplyMethod(@RequestBody CalculatorRestRequest requestModel) {
         try {
-            validateRestRequest(requestModel, CalculateType.MULTIPLY);
+            getValidatorForCalculateType(CalculateType.MULTIPLY).validate(requestModel);
         } catch (BusinessException e) {
             LOGGER.error(e.getMessage());
             return failedResponsePrepare(requestModel, e);
@@ -78,7 +81,7 @@ public class CalculatorRestService {
     @RequestMapping(value = "pow", method = RequestMethod.POST)
     public CalculatorRestResponse powMethod(@RequestBody CalculatorRestRequest requestModel) {
         try {
-            validateRestRequest(requestModel, CalculateType.POW);
+            getValidatorForCalculateType(CalculateType.POW).validate(requestModel);
         } catch (BusinessException e) {
             LOGGER.error(e.getMessage());
             return failedResponsePrepare(requestModel, e);
@@ -101,22 +104,18 @@ public class CalculatorRestService {
         return new CalculatorResponseBuilder().setHeader(responseHeader).setBody(calculatorResponseBody).build();
     }
 
-    private void validateRestRequest(CalculatorRestRequest requestModel, CalculateType calculateType) throws BusinessException {
-        IValidator validator = null;
+    private IValidator getValidatorForCalculateType(CalculateType calculateType) {
         switch (calculateType) {
             case ADDITION:
             case SUBSTRACTION:
             case MULTIPLY:
             case POW:
-                validator = ValidatorGenerator.getBaseValidator();
-                validator.validate(requestModel);
-                break;
+                return ValidatorGenerator.getBaseValidator();
             case DIVISION:
-                validator = ValidatorGenerator.getDivisionValidator();
-                validator.validate(requestModel);
-                break;
+                return ValidatorGenerator.getDivisionValidator();
             default:
         }
+        return ValidatorGenerator.getBaseValidator();
     }
 
     private CalculatorRestResponse failedResponsePrepare(CalculatorRestRequest requestModel, BusinessException e) {

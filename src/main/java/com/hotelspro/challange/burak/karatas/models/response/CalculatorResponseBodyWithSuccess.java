@@ -1,7 +1,5 @@
 package com.hotelspro.challange.burak.karatas.models.response;
 
-import com.hotelspro.challange.burak.karatas.models.response.CalculatorResponseBody;
-
 /**
  * Created by bkaratas on 5/8/17.
  */

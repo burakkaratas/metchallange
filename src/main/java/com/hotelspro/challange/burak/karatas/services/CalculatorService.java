@@ -1,14 +1,11 @@
 package com.hotelspro.challange.burak.karatas.services;
 
-import com.hotelspro.challange.burak.karatas.data.CalculatorRepository;
-import com.hotelspro.challange.burak.karatas.data.entity.CalculatedEntity;
 import com.hotelspro.challange.burak.karatas.models.enums.CalculateType;
 import com.hotelspro.challange.burak.karatas.services.calculate.factory.CalculatorServiceFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.ApplicationScope;
 
 /**
  * Created by bkaratas on 05.05.2017.
@@ -21,11 +18,7 @@ public class CalculatorService {
     @Autowired
     private CalculatorServiceFactory serviceFactory;
 
-    @Autowired
-    private CalculatorRepository calculatorRepository;
-
-
-    //@Cacheable(value = "calculateCache")
+    @Cacheable(value = "calculateCache")
     public Double calculate(Double param1, Double param2, CalculateType calculateType) {
         LOGGER.info(param1 + " and " + param2 + " will be calculate, operation :: " + calculateType);
 
@@ -33,20 +26,7 @@ public class CalculatorService {
 
         LOGGER.info(param1 + " and " + param2 + " was calculated, operation :: " + calculateType + ", result :: " + result);
 
-        CalculatedEntity calculatedEntity = getCalculatedEntity(param1, param2, calculateType, result);
-        calculatorRepository.save(calculatedEntity);
-
         return result;
     }
-
-    private CalculatedEntity getCalculatedEntity(Double param1, Double param2, CalculateType calculateType, Double result) {
-        CalculatedEntity calculatedEntity = new CalculatedEntity();
-        calculatedEntity.setOperationResult(result);
-        calculatedEntity.setOperationParam1(param1);
-        calculatedEntity.setOperationParam2(param2);
-        calculatedEntity.setCalculateType(calculateType);
-        return calculatedEntity;
-    }
-
 
 }

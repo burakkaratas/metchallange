@@ -6,8 +6,6 @@ import com.hotelspro.challange.burak.karatas.services.calculate.processes.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.ApplicationScope;
 
-import javax.inject.Singleton;
-
 /**
  * Created by bkaratas on 05.05.2017.
  */
