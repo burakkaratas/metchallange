@@ -40,7 +40,6 @@ public class ExecuteTimeInterceptor implements HandlerInterceptor {
         long endTime = System.currentTimeMillis();
         long executeTime = endTime - startTime;
         LOGGER.info(httpServletRequest.getRequestURI() + " endpoint response time :: " + executeTime + " ms"  + " at afterCompletation");
-        httpServletRequest.setAttribute(START_TIME_POST_ATTRIBUTE_NAME, System.currentTimeMillis());
     }
 
 }
