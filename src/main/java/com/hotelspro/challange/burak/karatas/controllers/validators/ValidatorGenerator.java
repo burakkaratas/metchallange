@@ -17,16 +17,12 @@ public class ValidatorGenerator {
     }
 
     public static IValidator getDivisionValidator() {
-        HeaderExistValidator one = new HeaderExistValidator();
-        BodyExistValidator two = new BodyExistValidator();
-        NullCheckValidator three = new NullCheckValidator();
+        AbstractValidator baseValidator = (AbstractValidator) getBaseValidator();
         DivZeroValidator four = new DivZeroValidator();
 
-        one.setNextValidator(two);
-        two.setNextValidator(three);
-        three.setNextValidator(four);
+        baseValidator.setNextValidator(four);
 
-        return one;
+        return baseValidator;
     }
 
 
