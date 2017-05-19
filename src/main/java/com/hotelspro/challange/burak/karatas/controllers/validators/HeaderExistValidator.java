@@ -14,7 +14,7 @@ public class HeaderExistValidator extends AbstractValidator {
     public void validate(CalculatorRestRequest request) throws BusinessException {
         RequestHeader header = request.getHeader();
         if (null == header)
-            throw new BusinessException(CalculatorRestHelper.getBusinessErrorMessage(HeaderExistValidator.class.getSimpleName()));
+            throw new BusinessException(CalculatorRestHelper.getBusinessErrorMessage(getSimpleClassName()));
 
         if (null != nextValidator)
             nextValidator.validate(request);
