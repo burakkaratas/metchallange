@@ -15,7 +15,7 @@ public class NullCheckValidator extends AbstractValidator {
         Double param2 = request.getBody().getParam2();
 
         if (null == param1 || null == param2)
-            throw new BusinessException(CalculatorRestHelper.getBusinessErrorMessage(NullCheckValidator.class.getSimpleName()));
+            throw new BusinessException(CalculatorRestHelper.getBusinessErrorMessage(getSimpleClassName()));
 
         if (null != nextValidator)
             nextValidator.validate(request);

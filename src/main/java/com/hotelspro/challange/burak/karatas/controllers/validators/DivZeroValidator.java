@@ -15,7 +15,7 @@ public class DivZeroValidator extends AbstractValidator {
         Double param2 = request.getBody().getParam2();
 
         if (Double.valueOf(0).equals(param2))
-            throw new BusinessException(CalculatorRestHelper.getBusinessErrorMessage(DivZeroValidator.class.getSimpleName()));
+            throw new BusinessException(CalculatorRestHelper.getBusinessErrorMessage(getSimpleClassName()));
 
         if (null != nextValidator)
             nextValidator.validate(request);

@@ -14,7 +14,7 @@ public class BodyExistValidator extends AbstractValidator {
     public void validate(CalculatorRestRequest request) throws BusinessException {
         CalculatorRequestBody body = request.getBody();
         if (null == body)
-            throw new BusinessException(CalculatorRestHelper.getBusinessErrorMessage(BodyExistValidator.class.getSimpleName()));
+            throw new BusinessException(CalculatorRestHelper.getBusinessErrorMessage(getSimpleClassName()));
 
         if (null != nextValidator)
             nextValidator.validate(request);
