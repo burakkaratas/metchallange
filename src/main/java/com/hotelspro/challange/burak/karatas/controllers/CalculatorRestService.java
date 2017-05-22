@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.hotelspro.challange.burak.karatas.controllers.util.CalculatorRestHelper.failedResponsePrepare;
+import static com.hotelspro.challange.burak.karatas.controllers.util.CalculatorRestHelper.getValidatorForCalculateType;
 import static com.hotelspro.challange.burak.karatas.models.enums.CalculateType.ADDITION;
 
 /**
@@ -104,28 +106,5 @@ public class CalculatorRestService {
         return new CalculatorResponseBuilder().setHeader(responseHeader).setBody(calculatorResponseBody).build();
     }
 
-    private IValidator getValidatorForCalculateType(CalculateType calculateType) {
-        switch (calculateType) {
-            case ADDITION:
-            case SUBSTRACTION:
-            case MULTIPLY:
-            case POW:
-                return ValidatorGenerator.getBaseValidator();
-            case DIVISION:
-                return ValidatorGenerator.getDivisionValidator();
-            default:
-        }
-        return ValidatorGenerator.getBaseValidator();
-    }
-
-    private CalculatorRestResponse failedResponsePrepare(CalculatorRestRequest requestModel, BusinessException e) {
-        String user = null;
-        if (null != requestModel.getHeader() && null != requestModel.getHeader().getUser())
-            user = requestModel.getHeader().getUser();
-        ResponseHeader responseHeader = CalculatorRestHelper.prepareResponseHeader(user, CalculateResponseStatus.FAILED);
-        CalculatorResponseBodyWithError calculatorResponseBodyWithError = new CalculatorResponseBodyWithError();
-        calculatorResponseBodyWithError.setErrorDescription(e.getMessage());
-        return new CalculatorResponseBuilder().setHeader(responseHeader).setBody(calculatorResponseBodyWithError).build();
-    }
 
 }
