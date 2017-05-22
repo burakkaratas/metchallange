@@ -25,14 +25,17 @@ public class MetchallangeApplicationTests {
     @Autowired
     CalculatorService calculatorService;
 
+    private final String BASE_PATH = "http://localhost:8080/calc/";
+
     @Before
     public void init() {
     }
 
     @Test
     public void additionEndpointTest() {
+
         TestRestTemplate restTemplate = new TestRestTemplate();
-        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity("http://localhost:8080/calc/addition", getRestRequestMock(),
+        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity(BASE_PATH + "addition", getRestRequestMock(),
                 CalculatorRestResponse.class);
         HttpStatus statusCode = response.getStatusCode();
         CalculateResponseStatus responseStatus = response.getBody().getHeader().getResponseStatus();
@@ -44,7 +47,7 @@ public class MetchallangeApplicationTests {
     @Test
     public void subtractionEndpointTest() {
         TestRestTemplate restTemplate = new TestRestTemplate();
-        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity("http://localhost:8080/calc/subtraction", getRestRequestMock(),
+        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity(BASE_PATH + "subtraction", getRestRequestMock(),
                 CalculatorRestResponse.class);
         HttpStatus statusCode = response.getStatusCode();
         CalculateResponseStatus responseStatus = response.getBody().getHeader().getResponseStatus();
@@ -55,7 +58,7 @@ public class MetchallangeApplicationTests {
     @Test
     public void cEndpointTest() {
         TestRestTemplate restTemplate = new TestRestTemplate();
-        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity("http://localhost:8080/calc/division", getRestRequestMock(),
+        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity(BASE_PATH + "division", getRestRequestMock(),
                 CalculatorRestResponse.class);
         HttpStatus statusCode = response.getStatusCode();
         CalculateResponseStatus responseStatus = response.getBody().getHeader().getResponseStatus();
@@ -66,7 +69,7 @@ public class MetchallangeApplicationTests {
     @Test
     public void multiplyEndpointTest() {
         TestRestTemplate restTemplate = new TestRestTemplate();
-        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity("http://localhost:8080/calc/multiply", getRestRequestMock(),
+        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity(BASE_PATH + "multiply", getRestRequestMock(),
                 CalculatorRestResponse.class);
         HttpStatus statusCode = response.getStatusCode();
         CalculateResponseStatus responseStatus = response.getBody().getHeader().getResponseStatus();
@@ -78,7 +81,7 @@ public class MetchallangeApplicationTests {
     @Test
     public void powEndpointTest() {
         TestRestTemplate restTemplate = new TestRestTemplate();
-        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity("http://localhost:8080/calc/pow", getRestRequestMock(),
+        ResponseEntity<CalculatorRestResponse> response = restTemplate.postForEntity(BASE_PATH + "pow", getRestRequestMock(),
                 CalculatorRestResponse.class);
         HttpStatus statusCode = response.getStatusCode();
         CalculateResponseStatus responseStatus = response.getBody().getHeader().getResponseStatus();
